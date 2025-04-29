@@ -37,7 +37,7 @@
     </style>
     
     <!-- Sidebar -->
-    <aside class="nasa-gradient w-20 min-h-screen p-4 flex flex-col items-center border-r border-blue-700 glow-effect relative">
+    <aside class="nasa-gradient  min-h-screen p-4 flex flex-col items-center border-r border-blue-700 glow-effect relative">
         <div class="space-font text-blue-300 text-2xl font-bold mb-8">CS</div>
         
         <!-- Navigation Icons -->
@@ -82,7 +82,7 @@
                 <div class="flex items-center space-x-4">
                     <div class="text-blue-300 space-font">
                         <i class="fas fa-clock mr-2"></i>
-                        <span id="missionTime">T+ 00:00:00</span>
+                        <span id="currentTime">{{ now()->format('H:i:s') }}</span>
                     </div>
                     <div class="flex items-center space-x-2 text-green-400">
                         <i class="fas fa-circle text-xs animate-pulse"></i>
@@ -97,7 +97,7 @@
             @yield('content')
         </main>
     </div>
-<
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
