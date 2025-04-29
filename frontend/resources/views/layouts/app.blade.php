@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full bg-gray-100">
+<html lang="es" class="h-full bg-gray-900">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CanSat - Monitoreo de Sensores</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/echarts.js'])
@@ -13,40 +17,87 @@
         </style>
     @endif
 </head>
-<body class="h-full">
-    <nav class="bg-indigo-600">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 items-center justify-between">
+<body class="h-full bg-gray-900 flex">
+    <style>
+        .nasa-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        .glow-effect {
+            box-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
+        }
+        .space-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .sidebar-icon {
+            @apply w-12 h-12 flex items-center justify-center rounded-lg mb-4 text-blue-300 hover:text-blue-100 hover:bg-blue-800 transition-all duration-300 border border-blue-700 hover:border-blue-500 hover:glow-effect;
+        }
+        .sidebar-tooltip {
+            @apply absolute left-full ml-4 px-2 py-1 bg-gray-900 text-blue-300 text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap border border-blue-700;
+        }
+    </style>
+    
+    <!-- Sidebar -->
+    <aside class="nasa-gradient w-20 min-h-screen p-4 flex flex-col items-center border-r border-blue-700 glow-effect relative">
+        <div class="space-font text-blue-300 text-2xl font-bold mb-8">CS</div>
+        
+        <!-- Navigation Icons -->
+        <nav class="flex flex-col items-center space-y-4">
+            <a href="{{ route('sensores.index') }}" class="group relative sidebar-icon {{ request()->routeIs('sensores.index') ? 'bg-blue-900' : '' }}">
+                <i class="fas fa-satellite-dish text-xl"></i>
+                <span class="sidebar-tooltip">Datos en Tiempo Real</span>
+            </a>
+            
+            <a href="{{ route('sensores.estadisticas') }}" class="group relative sidebar-icon {{ request()->routeIs('sensores.estadisticas') ? 'bg-blue-900' : '' }}">
+                <i class="fas fa-chart-bar text-xl"></i>
+                <span class="sidebar-tooltip">Estadísticas</span>
+            </a>
+            
+            <a href="#" class="group relative sidebar-icon">
+                <i class="fas fa-cog text-xl"></i>
+                <span class="sidebar-tooltip">Configuración</span>
+            </a>
+            
+            <a href="#" class="group relative sidebar-icon">
+                <i class="fas fa-rocket text-xl"></i>
+                <span class="sidebar-tooltip">Control de Misión</span>
+            </a>
+        </nav>
+        
+        <!-- Status Indicator -->
+        <div class="mt-auto group relative sidebar-icon bg-green-900/50">
+            <i class="fas fa-signal text-green-400"></i>
+            <span class="sidebar-tooltip">Sistema Conectado</span>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+        <nav class="nasa-gradient h-16 flex items-center px-6 border-b border-blue-700">
+            <div class="flex items-center justify-between w-full">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <a href="{{ route('sensores.index') }}" class="text-white font-bold text-xl">CanSat</a>
+                        <span class="text-blue-300 font-bold text-xl space-font tracking-wider">CanSat Mission Control</span>
                     </div>
-                    <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="{{ route('sensores.index') }}" 
-                               class="{{ request()->routeIs('sensores.index') ? 'bg-indigo-700 text-white' : 'text-white hover:bg-indigo-500' }} rounded-md px-3 py-2 text-sm font-medium">
-                                Datos en Tiempo Real
-                            </a>
-                            <a href="{{ route('sensores.estadisticas') }}" 
-                               class="{{ request()->routeIs('sensores.estadisticas') ? 'bg-indigo-700 text-white' : 'text-white hover:bg-indigo-500' }} rounded-md px-3 py-2 text-sm font-medium">
-                                Estadísticas
-                            </a>
-                            <a href="{{ route('sensores.rango') }}" 
-                               class="{{ request()->routeIs('sensores.rango') ? 'bg-indigo-700 text-white' : 'text-white hover:bg-indigo-500' }} rounded-md px-3 py-2 text-sm font-medium">
-                                Datos por Rango
-                            </a>
-                        </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-blue-300 space-font">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span id="missionTime">T+ 00:00:00</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-green-400">
+                        <i class="fas fa-circle text-xs animate-pulse"></i>
+                        <span class="text-sm space-font">En línea</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <main class="py-10">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <!-- Page Content -->
+        <main class="flex-1 p-6 overflow-auto bg-gray-900">
             @yield('content')
-        </div>
-    </main>
+        </main>
+    </div>
+<
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

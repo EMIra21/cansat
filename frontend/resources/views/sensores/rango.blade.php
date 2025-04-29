@@ -1,13 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-white shadow rounded-lg overflow-hidden">
-    <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-        <h2 class="text-xl font-semibold text-gray-800">Datos por Rango de Tiempo</h2>
+<div class="bg-gray-800 shadow-lg rounded-lg overflow-hidden border border-blue-500 glow-effect">
+    <div class="nasa-gradient px-4 py-5 sm:px-6 border-b border-blue-700">
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold text-blue-300 space-font flex items-center">
+                <i class="fas fa-clock text-blue-400 mr-3"></i>
+                Datos por Rango de Tiempo
+            </h2>
+            <div class="text-blue-400 space-font text-sm">
+                <i class="fas fa-satellite-dish mr-2"></i>
+                <span>Control de Misión</span>
+            </div>
+        </div>
     </div>
-    <div class="p-4">
+    <div class="p-4 bg-gray-900">
         @if(session('error'))
-            <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+            <div class="bg-red-900/50 border-l-4 border-red-400 p-4 mb-4 text-red-300">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
@@ -24,17 +33,20 @@
         <form action="{{ route('sensores.rango') }}" method="GET" class="mb-6">
             <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
                 <div class="md:col-span-5 space-y-1">
-                    <label for="horas" class="block text-sm font-medium text-gray-700">Últimas horas</label>
-                    <input type="number" 
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
-                           id="horas" 
-                           name="horas" 
-                           value="{{ $horas }}" 
-                           min="1" 
-                           max="168">
+                    <label for="horas" class="block text-sm font-medium text-blue-300">Últimas horas</label>
+                    <div class="relative">
+                        <input type="number" 
+                               class="mt-1 block w-full rounded-md bg-gray-800 border-blue-500 text-blue-300 shadow-lg focus:border-blue-400 focus:ring-blue-400 sm:text-sm" 
+                               id="horas" 
+                               name="horas" 
+                               value="{{ $horas }}" 
+                               min="1" 
+                               max="168">
+                        <div class="absolute inset-0 bg-blue-400/10 pointer-events-none rounded-md"></div>
+                    </div>
                 </div>
                 <div class="flex items-end">
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-blue-100 font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 border border-blue-400 shadow-lg transition-all duration-300 hover:shadow-blue-400/50">
                         Actualizar
                     </button>
                 </div>
@@ -42,34 +54,34 @@
         </form>
 
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="min-w-full divide-y divide-blue-800">
                 <thead>
-                    <tr class="bg-gray-50">
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha/Hora</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Temperatura</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Humedad</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Presión</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gas</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CO</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">H2</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CH4</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NH3</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">EtOH</th>
+                    <tr class="bg-gray-800">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">Fecha/Hora</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">Temperatura</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">Humedad</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">Presión</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">Gas</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">CO</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">H2</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">CH4</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">NH3</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-blue-300 uppercase tracking-wider border-b border-blue-700">EtOH</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-gray-900 divide-y divide-blue-800/30">
                     @foreach($datos as $dato)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ \Carbon\Carbon::parse($dato['timestamp'])->format('d/m/Y H:i:s') }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($dato['temperatura'], 2) }} °C</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($dato['humedad'], 2) }} %</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($dato['presion'], 2) }} hPa</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($dato['gas'], 2) }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($dato['co'], 2) }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($dato['h2'], 2) }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($dato['ch4'], 2) }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($dato['nh3'], 2) }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($dato['etoh'], 2) }}</td>
+                        <tr class="hover:bg-blue-900/20 transition-colors duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-300">{{ \Carbon\Carbon::parse($dato['timestamp'])->format('d/m/Y H:i:s') }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-200">{{ number_format($dato['temperatura'], 2) }} °C</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-200">{{ number_format($dato['humedad'], 2) }} %</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-200">{{ number_format($dato['presion'], 2) }} hPa</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-200">{{ number_format($dato['gas'], 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-200">{{ number_format($dato['co'], 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-200">{{ number_format($dato['h2'], 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-200">{{ number_format($dato['ch4'], 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-200">{{ number_format($dato['nh3'], 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-200">{{ number_format($dato['etoh'], 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
