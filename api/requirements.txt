@@ -3,3 +3,5 @@ Flask_SQLAlchemy
 Flask_CORS
 python-dotenv
 PyMySQL
+pyserial
+requests
