@@ -96,11 +96,17 @@ void loop() {
   json += "\"GZ\":" + String(gz);
   json += "}";
 
-  // Enviar por LoRa
+  // Enviar por LoRa con control de transmisión
   LoRa.beginPacket();
-  LoRa.print(json.c_str()); // Enviar como C string
-  LoRa.endPacket();
+  LoRa.print(json);
+  bool success = LoRa.endPacket();
 
-  Serial.println("JSON enviado:");
-  Serial.println(json);
+  if (success) {
+    Serial.println("JSON enviado:");
+    Serial.println(json);
+  } else {
+    Serial.println("Error al enviar el paquete");
+  }
+
+  delay(100); // Pausa para estabilidad en la transmisión
 }

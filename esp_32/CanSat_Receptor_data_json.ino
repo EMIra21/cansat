@@ -20,13 +20,23 @@ void setup() {
 }
 
 void loop() {
+  static String buffer = "";
   int packetSize = LoRa.parsePacket();
+  
   if (packetSize) {
-    String incoming = "";
     while (LoRa.available()) {
-      incoming += (char)LoRa.read();
+      char c = (char)LoRa.read();
+      buffer += c;
     }
-    Serial.println(incoming); // Imprime el JSON recibido
     
+    // Verificar si el buffer contiene un JSON completo
+    if (buffer.startsWith("{") && buffer.endsWith("}")) {
+      Serial.println(buffer); // Imprime el JSON completo
+      buffer = ""; // Limpia el buffer después de imprimir
+    } else if (buffer.length() > 500) { // Evitar desbordamiento de buffer
+      buffer = "";
+    }
   }
+  
+  delay(10); // Pequeña pausa para estabilidad
 }
