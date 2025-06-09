@@ -14,7 +14,7 @@ class SensorDataController extends Controller
         try {
             $response = Http::get($this->apiUrl . '/datos');
             $datos = $response->json();
-            return view('sensores.index', compact('datos'));
+            return view('sensores.index-arduino', compact('datos'));
         } catch (\Exception $e) {
             return back()->with('error', 'Error al obtener los datos de los sensores: ' . $e->getMessage());
         }
