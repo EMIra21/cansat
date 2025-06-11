@@ -37,46 +37,45 @@ void setup() {
   radio.setDataRate(RF24_1MBPS);
   radio.stopListening();
 
-  Serial.println("Emisor iniciado correctamente");
+  Serial.println("NRF24L01 iniciado correctamente");
 }
 
 void loop() {
   float temp = dht.readTemperature();
   float hum = dht.readHumidity();
 
+  // Validar lectura
   if (isnan(temp) || isnan(hum)) {
-    Serial.println("Error al leer DHT11");
+    Serial.println("⚠ Error al leer DHT11");
     digitalWrite(LED_VERDE, LOW);
     digitalWrite(LED_ROJO, HIGH);
     delay(2000);
     return;
   }
 
-  // Crear JSON
+  // Crear JSON como en el ejemplo LoRa
   String json = "{";
-  json += "\"temp\":" + String(temp, 1) + ",";
-  json += "\"hum\":" + String(hum, 1);
+  json += "\"T\":" + String(temp, 1) + ",";
+  json += "\"H\":" + String(hum, 1);
   json += "}";
-
-  Serial.print("Enviando: ");
-  Serial.println(json);
 
   // Convertir a array de char
   char jsonChar[64];
   json.toCharArray(jsonChar, sizeof(jsonChar));
 
-  // Enviar
+  // Enviar por NRF24L01
   bool enviado = radio.write(&jsonChar, sizeof(jsonChar));
 
   if (enviado) {
-    Serial.println("Enviado correctamente");
+    Serial.println("JSON enviado:");
+    Serial.println(json);
     digitalWrite(LED_VERDE, HIGH);
     digitalWrite(LED_ROJO, LOW);
   } else {
-    Serial.println("Error al enviar");
+    Serial.println("Error al enviar el paquete");
     digitalWrite(LED_VERDE, LOW);
     digitalWrite(LED_ROJO, HIGH);
   }
 
-  delay(2000); // Frecuencia de envío
+  delay(2000); // Pausa como en LoRa
 }
