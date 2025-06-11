@@ -3,7 +3,7 @@ import requests
 import json
 import time
 
-SERIAL_PORT = 'COM20'  # Cambiar al puerto que corresponda
+SERIAL_PORT = 'COM16'  # Cambiar al puerto que corresponda
 BAUD_RATE = 9600
 API_ENDPOINT = 'http://localhost:5000/api/guardar'
 
