@@ -7,19 +7,45 @@ use Illuminate\Support\Facades\Http;
 
 class SensorDataController extends Controller
 {
-    private $apiUrl = 'http://localhost:5000/api';
+    private $apiUrl = 'http://localhost:5000/api/datos';
 
     public function index()
-    {
-        try {
-            $response = Http::get($this->apiUrl . '/datos');
-            $datos = $response->json();
-            return view('sensores.index-arduino', compact('datos'));
-        } catch (\Exception $e) {
-            return back()->with('error', 'Error al obtener los datos de los sensores: ' . $e->getMessage());
+{
+    try {
+        $response = Http::get('http://localhost:8000/api/datos');
+        
+        // Verifica si la respuesta existe y es exitosa
+        if (!$response || !$response->successful()) {
+            throw new \Exception("Error al conectar con la API");
         }
-    }
 
+        $apiData = $response->json();
+        
+        // Verifica si la decodificación JSON fue exitosa
+        if (is_null($apiData)) {
+            throw new \Exception("La API devolvió un formato inválido");
+        }
+
+        // Estructura de datos segura con valores por defecto
+        return view('sensores.index-arduino', [
+            'datos' => [
+                'datos' => $apiData['datos'] ?? [],
+                'total_paginas' => $apiData['total_paginas'] ?? 1,
+                'pagina_actual' => $apiData['pagina_actual'] ?? 1
+            ]
+        ]);
+
+    } catch (\Exception $e) {
+        return view('sensores.index-arduino', [
+            'datos' => [
+                'datos' => [],
+                'total_paginas' => 1,
+                'pagina_actual' => 1
+            ],
+            'error' => $e->getMessage()
+        ]);
+    }
+}
     public function estadisticas(Request $request)
     {
         try {

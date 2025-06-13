@@ -24,7 +24,7 @@
         }
         .glow-effect {
             box-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
-        }
+        }   
         .space-font {
             font-family: 'Orbitron', sans-serif;
         }
