@@ -19,17 +19,18 @@
 </head>
 <body class="h-full bg-gray-900 flex">
     <style>
+        
         .nasa-gradient {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            background: linear-gradient(135deg,rgb(191, 57, 196) 0%,rgb(104, 104, 103) 100%); 
         }
         .glow-effect {
-            box-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
+            box-shadow: 0 0 15px rgb(74, 249, 255);
         }   
         .space-font {
             font-family: 'Orbitron', sans-serif;
         }
         .sidebar-icon {
-            @apply w-12 h-12 flex items-center justify-center rounded-lg mb-4 text-blue-300 hover:text-blue-100 hover:bg-blue-800 transition-all duration-300 border border-blue-700 hover:border-blue-500 hover:glow-effect;
+            @apply w-12 h-12 flex items-center justify-center rounded-lg mb-4 text-brown-300 hover:text-brown-100 hover:bg-brown-800 transition-all duration-300 border border-brown-700 hover:border-brown-500 hover:glow-effect;
         }
         .sidebar-tooltip {
             @apply absolute left-full ml-4 px-2 py-1 bg-gray-900 text-blue-300 text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap border border-blue-700;
@@ -38,13 +39,13 @@
     
     <!-- Sidebar -->
     <aside class="nasa-gradient  min-h-screen p-4 flex flex-col items-center border-r border-blue-700 glow-effect relative">
-        <div class="space-font text-blue-300 text-2xl font-bold mb-8">CS</div>
+        <div class="space-font text-blue-300 text-2xl font-bold mb-8">CanSat</div>
         
         <!-- Navigation Icons -->
         <nav class="flex flex-col items-center space-y-4">
-            <a href="{{ route('sensores.index') }}" class="group relative sidebar-icon {{ request()->routeIs('sensores.index') ? 'bg-blue-900' : '' }}">
+            <a href="{{ route('sensores.index') }}" class="group relative sidebar-icon {{ request()->routeIs('sensores.index') ? 'bg-yellow-300' : '' }}">
                 <i class="fas fa-satellite-dish text-xl"></i>
-                <span class="sidebar-tooltip">Datos en Tiempo Real</span>
+                <span class="sidebar-tooltip">Telemetria</span>
             </a>
             
             <a href="{{ route('sensores.estadisticas') }}" class="group relative sidebar-icon {{ request()->routeIs('sensores.estadisticas') ? 'bg-blue-900' : '' }}">
