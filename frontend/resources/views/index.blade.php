@@ -8,10 +8,11 @@
                 <i class="fas fa-satellite text-blue-400 mr-3"></i>
                 Telemetría en Tiempo Real
             </h2>
-            <div class="text-blue-400 space-font text-sm">
+            <div class="text-red-400 space-font text-sm">
                 <i class="fas fa-clock mr-2"></i>
                 <span id="currentTime">{{ now()->format('H:i:s') }}</span>
             </div>
+            
         </div>
     </div>
     <div class="p-4 bg-gray-900">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </div>
+            
         @endif
 
         <div class="overflow-x-auto rounded-lg border border-blue-700 bg-gray-800">
