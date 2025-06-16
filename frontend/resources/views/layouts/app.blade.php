@@ -65,7 +65,7 @@
         </nav>
         
         <!-- Status Indicator -->
-        <div class="mt-auto group relative sidebar-icon bg-green-900/50">
+        <div class="mt-auto group relative sidebar-icon bg-green-900/40">
             <i class="fas fa-signal text-green-400"></i>
             <span class="sidebar-tooltip">Sistema Conectado</span>
         </div>
@@ -101,5 +101,20 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script para insertar codigo javaScript en htmlL -->
+    <script> 
+        function actualizarHora()
+        {
+            //ahora es un objeto de tipo date para sacar las horas, la convierte en dos digitos
+            const ahora = new Date();
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            const segundos = String(ahora.getSeconds()).padStart(2, '0');
+            const horaActual = `${horas}:${minutos}:${segundos}`; //la hora actual completa
+            document.getElementById('currentTime').textContent = horaActual; //Busca el html con nombre currentTime y cam,bia el tecto por horaActual
+        }
+        actualizarHora();
+        setInterval(actualizarHora, 1000);
+    </script>
 </body>
 </html>
