@@ -43,7 +43,7 @@
         
         <!-- Navigation Icons -->
         <nav class="flex flex-col items-center space-y-4">
-            <a href="{{ route('sensores.index') }}" class="group relative sidebar-icon {{ request()->routeIs('sensores.index') ? 'bg-yellow-300' : '' }}">
+            <a href="{{ route('sensores.index') }}" class="group relative sidebar-icon {{ request()->routeIs('sensores.index') ? 'bg-blue-300' : '' }}">
                 <i class="fas fa-satellite-dish text-xl"></i>
                 <span class="sidebar-tooltip">Telemetria</span>
             </a>
